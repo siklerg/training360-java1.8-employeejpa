@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@SpringBootTest @Sql(statements = {"delete from employee", "delete from skill"})
+@SpringBootTest @Sql(statements = {"delete from skill", "delete from employee"})
 public class EmployeejpaApplicationTests {
 
 	@Autowired EmployeeRepository employeeRepository;
