@@ -12,10 +12,10 @@ import java.util.List;
 	@PersistenceContext private EntityManager em;
 
 	@Transactional public void save(Employee employee) {
-// @OneToMany(cascade = CascadeType.ALL) helyett:
-//		for (var skill : employee.getSkills()) {
-//			em.persist(skill);
-//		}
+		// @OneToMany(cascade = CascadeType.ALL) helyett:
+		//		for (var skill : employee.getSkills()) {
+		//			em.persist(skill);
+		//		}
 		em.persist(employee);
 	}
 
@@ -29,4 +29,13 @@ import java.util.List;
 		employee.setName(modifiedName);
 	}
 
+	@Transactional public void addSkills(long id, List<Skill> skills) {
+		//var employee = em.find(Employee.class, id);
+		var employee = em.getReference(Employee.class, id);
+		employee.addSkills(skills);
+		skills.forEach(s -> {
+			s.setEmployee(employee);
+			em.persist(s);
+		});
+	}
 }

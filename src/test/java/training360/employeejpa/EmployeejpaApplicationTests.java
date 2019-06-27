@@ -56,4 +56,15 @@ public class EmployeejpaApplicationTests {
 				.stream()
 				.anyMatch(s -> s.getName().equals("Python") && s.getLevel()==3));
 	}
+
+	@Test public void testAddSkills(){
+		var employee = new Employee("John Doe");
+		employeeRepository.save(employee);
+
+		employeeRepository.addSkills(employee.getId(), List.of( new Skill("Python", 3)) );
+
+		var employees = employeeRepository.listEmployees();
+
+		assertEquals("Python", employees.get(0).getSkills().get(0).getName());
+	}
 }

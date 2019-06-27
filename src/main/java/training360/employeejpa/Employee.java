@@ -24,6 +24,7 @@ public class Employee {
 	private LocalDateTime modifiedAt;
 
 	@OneToMany(mappedBy="employee", cascade = CascadeType.ALL) // mappedBy alakítja ki a kétirányú kapcsolatot
+	@OrderBy("name")
 	private List<Skill> skills = new ArrayList<>();
 
 	public void addSkills(List<Skill> newSkills){
