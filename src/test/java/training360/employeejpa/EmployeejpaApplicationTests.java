@@ -12,9 +12,8 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@SpringBootTest
-@Sql(statements = {"delete from employee_skills", "delete from employee"})
-public class EmployeejpaApplicationTests {
+@SpringBootTest @Sql(statements = { "delete from employee_skills",
+		"delete from employee" }) public class EmployeejpaApplicationTests {
 
 	@Autowired EmployeeRepository employeeRepository;
 
@@ -24,13 +23,12 @@ public class EmployeejpaApplicationTests {
 		employeeRepository.save(new Employee("Jack Doe"));
 
 		var employees = employeeRepository.listEmployees();
-		assertEquals(List.of("Jack Doe", "Jane Doe"), employees.stream()
-				.map(employee -> employee.getName())
-				.collect(Collectors.toList()));
+		assertEquals(List.of("Jack Doe", "Jane Doe"),
+				employees.stream().map(employee -> employee.getName()).collect(Collectors.toList()));
 
 	}
 
-	@Test public void testEmployeeUpdate(){
+	@Test public void testEmployeeUpdate() {
 		//Given
 		var employee = new Employee("John");
 		employeeRepository.save(employee);
@@ -44,14 +42,19 @@ public class EmployeejpaApplicationTests {
 		assertEquals("Jack", employees.get(0).getName());
 	}
 
-	@Test
-	public void testSaveSkills(){
+	@Test public void testSaveSkills() {
 		var employee = new Employee("John Doe");
-		employee.setSkills(List.of("Ruby", "Python", "Java", "dotNet", "Angular"));
+		employee.setSkills(List.of(new Skill("Ruby", 1), new Skill("Python", 3), new Skill("Java", 5), new Skill("dotNet", 0),
+				new Skill("Angular", 4)));
 		employeeRepository.save(employee);
 
 		var employees = employeeRepository.listEmployees();
+		var skill = new Skill("Python", 3);
 
-		assertTrue(employees.get(0).getSkills().contains("Python"));
+		//assertTrue(employees.get(0).getSkills().contains(skill));
+
+		assertTrue(employees.get(0).getSkills()
+				.stream()
+				.anyMatch(s -> s.getName().equals("Python") && s.getLevel()==3));
 	}
 }

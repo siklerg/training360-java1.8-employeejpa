@@ -23,7 +23,7 @@ public class Employee {
 	private LocalDateTime modifiedAt;
 
 	@ElementCollection
-	private List<String> skills;
+	private List<Skill> skills;
 
 	public Employee(String name) {
 		this.name = name;
