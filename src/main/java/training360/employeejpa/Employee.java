@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -22,8 +23,8 @@ public class Employee {
 
 	private LocalDateTime modifiedAt;
 
-	@ElementCollection
-	private List<Skill> skills;
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Skill> skills = new ArrayList<>();
 
 	public Employee(String name) {
 		this.name = name;

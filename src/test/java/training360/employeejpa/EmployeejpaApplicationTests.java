@@ -5,15 +5,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@SpringBootTest @Sql(statements = { "delete from employee_skills",
-		"delete from employee" }) public class EmployeejpaApplicationTests {
+@SpringBootTest @Sql(statements = { "delete from employee_skills", "delete from employee", "delete from skill"})
+public class EmployeejpaApplicationTests {
 
 	@Autowired EmployeeRepository employeeRepository;
 
