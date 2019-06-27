@@ -19,8 +19,9 @@ public class EmployeeRepository {
 		em.persist(employee);
 	}
 
+	@Transactional
 	public List<Employee> listEmployees(){
-		return em.createQuery("select e from Employee e order by e.name", Employee.class).getResultList();
+		return em.createQuery("select distinct e from Employee e left join fetch e.skills order by e.name", Employee.class).getResultList(); // lazy probléma megoldása
 	}
 
 	@Transactional

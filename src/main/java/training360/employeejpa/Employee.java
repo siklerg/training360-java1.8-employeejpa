@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Data//lombok: legenerálja a gettereket, settereket
@@ -16,8 +18,25 @@ public class Employee {
 
 	private String name;
 
+	private LocalDateTime createdAt;
+
+	private LocalDateTime modifiedAt;
+
+	@ElementCollection
+	private List<String> skills;
+
 	public Employee(String name) {
 		this.name = name;
 	}
 
+	@PrePersist
+	public void initTimes(){
+		createdAt = LocalDateTime.now();
+		modifiedAt = LocalDateTime.now();
+	}
+
+	@PreUpdate
+	public void setModifiedtime(){
+		modifiedAt = LocalDateTime.now();
+	}
 }

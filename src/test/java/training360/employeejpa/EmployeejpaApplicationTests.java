@@ -10,9 +10,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
-@Sql(statements = "delete from employee")
+@Sql(statements = {"delete from employee_skills", "delete from employee"})
 public class EmployeejpaApplicationTests {
 
 	@Autowired EmployeeRepository employeeRepository;
@@ -43,4 +44,14 @@ public class EmployeejpaApplicationTests {
 		assertEquals("Jack", employees.get(0).getName());
 	}
 
+	@Test
+	public void testSaveSkills(){
+		var employee = new Employee("John Doe");
+		employee.setSkills(List.of("Ruby", "Python", "Java", "dotNet", "Angular"));
+		employeeRepository.save(employee);
+
+		var employees = employeeRepository.listEmployees();
+
+		assertTrue(employees.get(0).getSkills().contains("Python"));
+	}
 }
