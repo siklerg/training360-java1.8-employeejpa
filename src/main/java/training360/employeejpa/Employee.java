@@ -23,8 +23,14 @@ public class Employee {
 
 	private LocalDateTime modifiedAt;
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="employee", cascade = CascadeType.ALL) // mappedBy alakítja ki a kétirányú kapcsolatot
 	private List<Skill> skills = new ArrayList<>();
+
+	public void addSkills(List<Skill> newSkills){
+		skills.addAll(newSkills);
+		newSkills.forEach(s -> s.setEmployee(this));
+	}
+
 
 	public Employee(String name) {
 		this.name = name;

@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@SpringBootTest @Sql(statements = { "delete from employee_skills", "delete from employee", "delete from skill"})
+@SpringBootTest @Sql(statements = {"delete from employee", "delete from skill"})
 public class EmployeejpaApplicationTests {
 
 	@Autowired EmployeeRepository employeeRepository;
@@ -43,7 +43,7 @@ public class EmployeejpaApplicationTests {
 
 	@Test public void testSaveSkills() {
 		var employee = new Employee("John Doe");
-		employee.setSkills(List.of(new Skill("Ruby", 1), new Skill("Python", 3), new Skill("Java", 5), new Skill("dotNet", 0),
+		employee.addSkills(List.of(new Skill("Ruby", 1), new Skill("Python", 3), new Skill("Java", 5), new Skill("dotNet", 0),
 				new Skill("Angular", 4)));
 		employeeRepository.save(employee);
 
